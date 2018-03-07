@@ -33,6 +33,7 @@ import android.transition.Slide;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mapbox.mapboxsdk.geometry.BoundingBox;
@@ -119,8 +120,12 @@ public class TrackDetailsActivity extends BaseInjectorActivity {
     protected TextView mCarText;
     @InjectView(R.id.activity_track_details_attr_emission_value)
     protected TextView mEmissionText;
+    @InjectView(R.id.activity_track_details_attr_emission_value_container)
+    protected RelativeLayout mEmissionTextContainer;
     @InjectView(R.id.activity_track_details_attr_consumption_value)
     protected TextView mConsumptionText;
+    @InjectView(R.id.activity_track_details_attr_consumption_value_container)
+    protected RelativeLayout mConsumptionTextContainer;
 
 
     @Override
@@ -289,10 +294,22 @@ public class TrackDetailsActivity extends BaseInjectorActivity {
                 mConsumptionText.setTextColor(Color.RED);
             }
         } catch (FuelConsumptionException e) {
+            /*if there are no values of Emmission and CO2 consumption, then it means that it is GPS Only type recording
+            so disable them in the view*/
+            mEmissionTextContainer.setVisibility(View.GONE);
+            mConsumptionTextContainer.setVisibility(View.GONE);
             e.printStackTrace();
         } catch (NoMeasurementsException e) {
+             /*if there are no values of Emmission and CO2 consumption, then it means that it is GPS Only type recording
+            so disable them in the view*/
+            mEmissionTextContainer.setVisibility(View.GONE);
+            mConsumptionTextContainer.setVisibility(View.GONE);
             e.printStackTrace();
         } catch (UnsupportedFuelTypeException e) {
+             /*if there are no values of Emmission and CO2 consumption, then it means that it is GPS Only type recording
+            so disable them in the view*/
+            mEmissionTextContainer.setVisibility(View.GONE);
+            mConsumptionTextContainer.setVisibility(View.GONE);
             e.printStackTrace();
         }
     }

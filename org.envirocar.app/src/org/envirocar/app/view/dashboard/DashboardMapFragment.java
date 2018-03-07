@@ -67,6 +67,15 @@ public class DashboardMapFragment extends BaseInjectorFragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mMapView.setUserLocationEnabled(true);
+        mMapView.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW);
+        mMapView.setUserLocationRequiredZoom(18);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mMapView.setUserLocationEnabled(true);

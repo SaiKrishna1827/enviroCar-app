@@ -79,14 +79,6 @@ public class DashboardTrackMapFragment extends BaseInjectorFragment {
         // Inject all dashboard-related views.
         ButterKnife.inject(this, contentView);
 
-        // Init the map view
-        mMapView.setTileSource(MapUtils.getOSMTileLayer());
-        mMapView.setUserLocationEnabled(true);
-        mMapView.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW_BEARING);
-        mMapView.setUserLocationRequiredZoom(18);
-        mIsFollowingLocation = true;
-        mFollowFab.setVisibility(View.INVISIBLE);
-
         //        mMapView.setOnTouchListener(new View.OnTouchListener() {
         //            @Override
         //            public boolean onTouch(View v, MotionEvent event) {
@@ -101,6 +93,22 @@ public class DashboardTrackMapFragment extends BaseInjectorFragment {
             mMapView.getOverlays().add(mPathOverlay);
 
         return contentView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //Init the map view
+        //we should initialise the mapview in onActivityCreated, not in onCreateView
+        //as activity is not attached to the fragment in onCreateView
+        initMapView();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Init the map view
+        initMapView();
     }
 
     @Override
@@ -134,6 +142,16 @@ public class DashboardTrackMapFragment extends BaseInjectorFragment {
 
             hideFollowFAB();
         }
+    }
+
+    //Initialises the map view
+    private void initMapView(){
+        mMapView.setTileSource(MapUtils.getOSMTileLayer());
+        mMapView.setUserLocationEnabled(true);
+        mMapView.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW_BEARING);
+        mMapView.setUserLocationRequiredZoom(18);
+        mIsFollowingLocation = true;
+        mFollowFab.setVisibility(View.INVISIBLE);
     }
 
     /**

@@ -44,6 +44,20 @@ public class PreferencesHandler implements PreferenceConstants {
     public static final boolean DEFAULT_TEXT_TO_SPEECH = false;
     public static final boolean DEFAULT_BLUETOOTH_SERVICE_AUTOSTART = true;
 
+    //this method returns the previously selected/default recording type(OBD+GPS or GPS Only)
+    public static int getPreviouslySelectedRecordingType(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getInt(PREF_SELECT_RECORDING_TYPE, DEFAULT_SELECT_RECORDING_TYPE);
+    }
+
+    //this method sets the previously selected/default recording type(OBD+GPS or GPS Only) into the sharedpreferences
+    public static void setPreviouslySelectedRecordingType(Context context,int type){
+        SharedPreferences app_preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = app_preferences.edit();
+        editor.putInt(PREF_SELECT_RECORDING_TYPE, type);
+        editor.apply();
+    }
+
 
     public static boolean isAutoconnectEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)

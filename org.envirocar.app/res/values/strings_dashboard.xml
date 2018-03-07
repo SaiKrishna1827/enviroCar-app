@@ -37,6 +37,8 @@
     <string name="dashboard_bluetooth_disabled">Bluetooth is disabled</string>
     <string name="dashboard_bluetooth_disabled_snackbar">Bluetooth is disabled. Bluetooth has to be enabled before you can start a track.</string>
     <string name="dashboard_bluetooth_disabled_advise">Please enable Bluetooth.</string>
+    <string name="dashboard_gps_disabled_snackbar">GPS is disabled. GPS has to be enabled before you can start a track.</string>
+
 
     <string name="dashboard_obd_not_selected">No OBD-II adapter selected</string>
     <string name="dashboard_obd_not_selected_advise">Click here to select one</string>

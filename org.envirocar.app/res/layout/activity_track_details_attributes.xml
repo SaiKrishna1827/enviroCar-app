@@ -140,6 +140,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/activity_track_details_attr_consumption_value_container"
                     android:minHeight="@dimen/spacing_xxlarge"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin">
@@ -178,6 +179,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/activity_track_details_attr_emission_value_container"
                     android:minHeight="@dimen/spacing_xxlarge"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin">

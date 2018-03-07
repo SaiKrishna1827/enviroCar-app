@@ -26,6 +26,10 @@ import org.envirocar.app.activity.StartStopButtonUtil;
 import org.envirocar.app.handler.CarPreferenceHandler;
 import org.envirocar.app.handler.TermsOfUseManager;
 import org.envirocar.app.view.LogbookFragment;
+import org.envirocar.app.view.dashboard.DashBoardBaseFragment;
+import org.envirocar.app.view.dashboard.DashBoardGPSOnlyMainFragment;
+import org.envirocar.app.view.dashboard.DashboardGPSOnlyTrackDetailsFragment;
+import org.envirocar.app.view.dashboard.DashboardGPSOnlyTrackSettingsFragment;
 import org.envirocar.app.view.dashboard.DashboardMainFragment;
 import org.envirocar.app.view.dashboard.DashboardMapFragment;
 import org.envirocar.app.view.dashboard.DashboardTempomatFragment;
@@ -67,7 +71,11 @@ import dagger.Provides;
                 AbstractTrackListCardFragment.class,
                 TrackListLocalCardFragment.class,
                 TrackListRemoteCardFragment.class,
-                ReactiveTermsOfUseDialog.class
+                ReactiveTermsOfUseDialog.class,
+                DashBoardBaseFragment.class,
+                DashBoardGPSOnlyMainFragment.class,
+                DashboardGPSOnlyTrackDetailsFragment.class,
+                DashboardGPSOnlyTrackSettingsFragment.class
         },
         addsTo = BaseApplicationModule.class,
         library = true,

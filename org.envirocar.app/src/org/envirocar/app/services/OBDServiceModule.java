@@ -41,7 +41,8 @@ import dagger.Provides;
         library = true,
         injects = {
                 OBDConnectionService.class,
-                OBDConnectionHandler.class
+                OBDConnectionHandler.class,
+                GPSOnlyRecordingService.class
         }
 )
 public class OBDServiceModule {

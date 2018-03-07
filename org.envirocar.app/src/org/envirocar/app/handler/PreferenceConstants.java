@@ -56,4 +56,8 @@ public interface PreferenceConstants {
     String PERSISTENT_SEEN_ANNOUNCEMENTS = "persistent_seen_announcements";
     String SAMPLING_RATE = "ec_sampling_rate";
     String ENABLE_DEBUG_LOGGING = "pref_enable_debug_logging";
+
+    //These variables are for remembering the users default/last selected recording type among OBD+GPS or GPS Only
+    String PREF_SELECT_RECORDING_TYPE = "select_recording_type_in_base_fragment";
+    int DEFAULT_SELECT_RECORDING_TYPE = 0;
 }

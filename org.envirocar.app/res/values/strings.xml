@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 
     Copyright (C) 2013 - 2015 the enviroCar community
 
@@ -28,7 +27,6 @@
 
     <string name="track_statistics">Track Statistics</string>
     <string name="track_statistics_distance">Distance</string>
-
 
 
     <string name="menu_about">About</string>
@@ -157,7 +155,6 @@
     <string name="menu_register">Register</string>
 
 
-
     <string name="select_car">Car</string>
     <string name="welcome_message">Welcome, %s</string>
     <string name="goodbye_message">Goodbye, %s</string>
@@ -182,18 +179,17 @@
     <string name="help">Help</string>
 
 
-
     <string name="action_send_log">Send</string>
-	<string name="send_log_0">This feature helps us to reproduce unexpected behavior or program crashes.
+    <string name="send_log_0">This feature helps us to reproduce unexpected behavior or program crashes.
 	    When sending in the Log file of the enviroCar app you help to improve it.</string>
-	<string name="send_log_1">This feature uses the default \"Send To\" mechanism.
+    <string name="send_log_1">This feature uses the default \"Send To\" mechanism.
 	    If you invoke it with your Email client, you can easily send the report via email. If you do not have an Email client installed,
 	    you can save the log file on a PC, e.g. through Bluetooth or USB. In such cases we appreciate sending
 	    in the reporting bundle manually. It is stored at the following location:</string>
     <string name="send_log_when_label">Approximate minutes past since issue:</string>
     <string name="send_log_comments_label">(additional comments)</string>
     <string name="send_log_time_past_hint">(time past since issue)</string>
-	<string name="troubleshootingParagraph" translatable="false">The enviroCar app was not able to establish the bluetooth connection to
+    <string name="troubleshootingParagraph" translatable="false">The enviroCar app was not able to establish the bluetooth connection to
 	    the OBD-II adapter. You could try to unplug and plug the adapter, then restart measurements.</string>
     <!--<string name="title_activity_troubleshooting">Troubleshooting</string>-->
     <string name="connection_state">State</string>
@@ -224,8 +220,6 @@
     <string name="ok" translatable="false">Ok</string>
 
 
-
-
     <string name="store">Store</string>
     <string name="mileage">Mileage</string>
     <string name="volume">Volume</string>
@@ -235,6 +229,11 @@
     <string name="logbook_information">Information about the Date, User, Car and Fueltype will be obtained automatically</string>
     <string name="comment">Additional comments</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_item_obd_plus_gps">OBD + GPS</string>
+    <string name="menu_item_gps_only">GPS Only</string>
+    <string name="menu_item_select_recording_type">Recording Type</string>
 
 
 </resources>

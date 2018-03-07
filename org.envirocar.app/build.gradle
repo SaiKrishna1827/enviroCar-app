@@ -11,6 +11,7 @@ dependencies {
     compile rootProject.ext.supportRecyclerview
     compile rootProject.ext.dagger
     //apt rootProject.ext.daggerCompiler
+    compile 'com.android.support:support-v4:23.4.0'
     provided rootProject.ext.daggerCompiler
     compile rootProject.ext.sqlBrite
     compile rootProject.ext.otto

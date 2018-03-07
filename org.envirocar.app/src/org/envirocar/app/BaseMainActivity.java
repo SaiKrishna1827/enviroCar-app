@@ -55,13 +55,14 @@ import org.envirocar.app.handler.PreferenceConstants;
 import org.envirocar.app.handler.PreferencesHandler;
 import org.envirocar.app.handler.TemporaryFileManager;
 import org.envirocar.app.handler.UserHandler;
+import org.envirocar.app.services.GPSOnlyRecordingService;
 import org.envirocar.app.services.OBDConnectionService;
 import org.envirocar.app.services.SystemStartupService;
 import org.envirocar.app.view.HelpActivity;
 import org.envirocar.app.view.LoginActivity;
 import org.envirocar.app.view.SendLogFileFragment;
 import org.envirocar.app.view.TroubleshootingFragment;
-import org.envirocar.app.view.dashboard.DashboardMainFragment;
+import org.envirocar.app.view.dashboard.DashBoardBaseFragment;
 import org.envirocar.app.view.logbook.LogbookActivity;
 import org.envirocar.app.view.settings.SettingsActivity;
 import org.envirocar.app.view.tracklist.TrackListPagerFragment;
@@ -222,8 +223,8 @@ public class BaseMainActivity extends BaseInjectorActivity {
         // Initializes the navigation drawer.
         initNavigationDrawerLayout();
 
-        // Set the DashboardFragment as initial fragment.
-        mStartupFragment = new DashboardMainFragment();
+        // Set the DashBoardBaseFragment as initial fragment.
+        mStartupFragment = new DashBoardBaseFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, mStartupFragment, mStartupFragment.getClass()
@@ -376,7 +377,6 @@ public class BaseMainActivity extends BaseInjectorActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
     private void checkAffectingAnnouncements() {
         final List<Announcement> annos = new ArrayList<>();
         try {
@@ -453,6 +453,7 @@ public class BaseMainActivity extends BaseInjectorActivity {
                 sb.toString()).commit();
     }
 
+
     // TODO check
     private void firstInit() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -512,7 +513,7 @@ public class BaseMainActivity extends BaseInjectorActivity {
         switch (menuItem.getItemId()) {
             case R.id.menu_nav_drawer_dashboard:
                 //                fragment = new RealDashboardFragment();
-                fragment = new DashboardMainFragment();
+                fragment = new DashBoardBaseFragment();
                 break;
             case R.id.menu_nav_drawer_tracklist_new:
                 fragment = new TrackListPagerFragment();
@@ -582,6 +583,7 @@ public class BaseMainActivity extends BaseInjectorActivity {
     private void shutdownEnviroCar() {
         SystemStartupService.stopService(this);
         OBDConnectionService.stopService(this);
+        GPSOnlyRecordingService.stopService(this);
 
         mMainThreadWorker.schedule(() -> {
             System.runFinalizersOnExit(true);
@@ -698,7 +700,6 @@ public class BaseMainActivity extends BaseInjectorActivity {
         //
         //        mNavDrawerAdapter.notifyDataSetChanged();
     }
-
 
     protected void resolvePersistentSeenAnnouncements() {
         String pers = PreferenceManager.getDefaultSharedPreferences(this)

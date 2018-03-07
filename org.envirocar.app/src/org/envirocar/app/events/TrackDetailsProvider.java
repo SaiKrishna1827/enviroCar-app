@@ -58,6 +58,10 @@ public class TrackDetailsProvider {
 
     private final Bus mBus;
 
+    //Variables for calculation of speed when tracking type is GPS only
+    private long prevTime = 0;
+    private float speedCalculated = (float) 0.0;
+
     /**
      * Constructor.
      *
@@ -167,6 +171,12 @@ public class TrackDetailsProvider {
             if (res[0] > 0) {
                 mDistanceValue += res[0] / 1000;
                 mBus.post(provideDistanceValue());
+                //calculating speed when tracking type is GPS Only and posting it in the bus
+                if(prevTime != 0 && (System.currentTimeMillis() != prevTime)){
+                    speedCalculated = (res[0]/1000)/((System.currentTimeMillis()-prevTime)/ (float)(1000*60*60) );
+                    mBus.post(new GPSSpeedChangeEvent(speedCalculated));
+                }
+                prevTime = System.currentTimeMillis();
             }
             mLastLocation = mCurrentLocation;
             mCurrentLocation = null;
@@ -179,6 +189,11 @@ public class TrackDetailsProvider {
     private void updateAverageSpeed(Measurement measurement) {
         if (measurement.hasProperty(Measurement.PropertyKey.SPEED)){
             mTotalSpeed += measurement.getProperty(Measurement.PropertyKey.SPEED);
+            mAvrgSpeed = (int) mTotalSpeed / mNumMeasurements;
+            mBus.post(provideAverageSpeed());
+        }else if(speedCalculated != 0.0){
+            //calculating of Average speed and posting it into the bus when recording type is GPS Only
+            mTotalSpeed += speedCalculated;
             mAvrgSpeed = (int) mTotalSpeed / mNumMeasurements;
             mBus.post(provideAverageSpeed());
         }

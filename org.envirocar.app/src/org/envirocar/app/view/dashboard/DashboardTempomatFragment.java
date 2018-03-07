@@ -29,10 +29,13 @@ import android.view.ViewGroup;
 import com.squareup.otto.Subscribe;
 
 import org.envirocar.app.R;
+import org.envirocar.app.events.GPSSpeedChangeEvent;
+import org.envirocar.app.services.GPSOnlyRecordingService;
 import org.envirocar.obd.events.SpeedUpdateEvent;
 import org.envirocar.app.view.preferences.Tempomat;
 import org.envirocar.core.injection.BaseInjectorFragment;
 import org.envirocar.core.logging.Logger;
+import org.envirocar.obd.service.BluetoothServiceState;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -105,6 +108,13 @@ public class DashboardTempomatFragment extends BaseInjectorFragment {
         if(mTempomatView != null){
             mTempomatView.setSpeed(event.mSpeed);
         }
+    }
+
+    //When recording type is GPS Only, then here we can recieve speedChangeEvent and update it in mTempomatView
+    @Subscribe
+    public void onReceiveAvrgSpeedUpdateEvent(GPSSpeedChangeEvent event) {
+        if(GPSOnlyRecordingService.CURRENT_SERVICE_STATE == BluetoothServiceState.SERVICE_STARTED)
+            mTempomatView.setSpeed((int) event.mGPSSpeed);
     }
 
 }

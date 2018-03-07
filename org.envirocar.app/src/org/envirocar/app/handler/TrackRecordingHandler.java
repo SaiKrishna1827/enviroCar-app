@@ -18,11 +18,15 @@
  */
 package org.envirocar.app.handler;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 
 import com.squareup.otto.Bus;
 
 import org.envirocar.app.R;
+import org.envirocar.app.services.GPSOnlyRecordingService;
+import org.envirocar.app.services.OBDConnectionService;
 import org.envirocar.core.entity.Car;
 import org.envirocar.core.entity.Measurement;
 import org.envirocar.core.entity.Track;
@@ -33,6 +37,7 @@ import org.envirocar.core.exception.NoMeasurementsException;
 import org.envirocar.core.injection.InjectApplicationScope;
 import org.envirocar.core.injection.Injector;
 import org.envirocar.core.logging.Logger;
+import org.envirocar.core.utils.ServiceUtils;
 import org.envirocar.obd.events.BluetoothServiceStateChangedEvent;
 import org.envirocar.obd.service.BluetoothServiceState;
 import org.envirocar.remote.DAOProvider;
@@ -41,6 +46,7 @@ import org.envirocar.storage.EnviroCarDB;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -281,7 +287,7 @@ public class TrackRecordingHandler {
         return getActiveTrackReference(false)
                 .flatMap(track -> {
                     // Stop the background service.
-                    mBluetoothHandler.stopOBDConnectionService();
+                    stopRecordingConnectionService();
 
                     if (track == null)
                         return Observable.just(track);
@@ -301,4 +307,36 @@ public class TrackRecordingHandler {
                             mEnvirocarDB.updateTrackObservable(track);
                 });
     }
+
+    //stops all the background processes
+    public void stopRecordingConnectionService() {
+        if (ServiceUtils.isServiceRunning(mContext, OBDConnectionService.class)) {
+            mContext.getApplicationContext()
+                    .stopService(new Intent(mContext, OBDConnectionService.class));
+        }
+
+        if (ServiceUtils.isServiceRunning(mContext, GPSOnlyRecordingService.class)) {
+            mContext.getApplicationContext()
+                    .stopService(new Intent(mContext, GPSOnlyRecordingService.class));
+        }
+
+        ActivityManager amgr = (ActivityManager) mContext.getSystemService(Context
+                .ACTIVITY_SERVICE);
+
+        List<ActivityManager.RunningAppProcessInfo> list = amgr.getRunningAppProcesses();
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                ActivityManager.RunningAppProcessInfo apinfo = list.get(i);
+
+                String[] pkgList = apinfo.pkgList;
+                if (apinfo.processName.startsWith("org.envirocar.app.services.OBD")
+                        || apinfo.processName.startsWith("org.envirocar.app.services.GPS")) {
+                    for (int j = 0; j < pkgList.length; j++) {
+                        amgr.killBackgroundProcesses(pkgList[j]);
+                    }
+                }
+            }
+        }
+    }
+
 }

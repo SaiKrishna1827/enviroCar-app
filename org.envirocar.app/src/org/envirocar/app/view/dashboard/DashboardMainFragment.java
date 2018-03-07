@@ -95,8 +95,8 @@ public class DashboardMainFragment extends BaseInjectorFragment {
 
     // All the sub-fragments to show in this fragment.
     private Fragment mCurrentlyVisible;
-    private Fragment mDashboardHeaderFragment;
-    private Fragment mDashboardSettingsFragment;
+    private Fragment mDashboardHeaderFragment = new DashboardTrackDetailsFragment();
+    private Fragment mDashboardSettingsFragment = new DashboardTrackSettingsFragment();
     private Fragment mDashboardMapFragment = new DashboardMapFragment();
     private Fragment mDashboardTempomatFragment = new DashboardTempomatFragment();
     private Fragment mDashboardTrackMapFragment = new DashboardTrackMapFragment();
@@ -117,11 +117,18 @@ public class DashboardMainFragment extends BaseInjectorFragment {
         // Inject all dashboard-related views.
         ButterKnife.inject(this, contentView);
 
-        // Get the settings fragment and the header fragment.
+      /*  // Get the settings fragment and the header fragment.
         mDashboardSettingsFragment = getChildFragmentManager()
                 .findFragmentById(R.id.fragment_startup_settings_layout);
         mDashboardHeaderFragment = getChildFragmentManager()
-                .findFragmentById(R.id.fragment_dashboard_header_fragment);
+                .findFragmentById(R.id.fragment_dashboard_header_fragment); */
+
+      //here Fragments are programatically attached to the parent fragment rather than through XML
+      // as some errors are occuring while attached through XML
+      FragmentTransaction transaction = getFragmentManager().beginTransaction();
+      transaction.add(R.id.fragment_startup_settings_layout,mDashboardSettingsFragment);
+      transaction.add(R.id.fragment_dashboard_header_fragment,mDashboardHeaderFragment);
+      transaction.commit();
 
         // TODO fix this. The static remoteService state is just a workaround.
         onShowServiceStateUI(OBDConnectionService.CURRENT_SERVICE_STATE);
@@ -134,6 +141,7 @@ public class DashboardMainFragment extends BaseInjectorFragment {
 
     @Override
     public void onResume() {
+        onShowServiceStateUI(OBDConnectionService.CURRENT_SERVICE_STATE);
         updateStartStopButton(OBDConnectionService.CURRENT_SERVICE_STATE);
         updateInfoField();
         super.onResume();
@@ -323,16 +331,16 @@ public class DashboardMainFragment extends BaseInjectorFragment {
             BluetoothServiceStateChangedEvent event) {
         LOG.info(String.format("onReceiveBluetoothServiceStateChangedEvent(): %s",
                 event.toString()));
-        mServiceState = event.mState;
+        mServiceState = OBDConnectionService.CURRENT_SERVICE_STATE;
         if (mServiceState == BluetoothServiceState.SERVICE_STARTED && mConnectingDialog != null) {
             mConnectingDialog.dismiss();
             mConnectingDialog = null;
         }
 
         mMainThreadScheduler.schedule(() -> {
-            onShowServiceStateUI(event.mState);
+            onShowServiceStateUI(mServiceState);
             // Update the start stop button.
-            updateStartStopButton(event.mState);
+            updateStartStopButton(mServiceState);
             // Update the info field.
             updateInfoField();
         });
@@ -370,6 +378,7 @@ public class DashboardMainFragment extends BaseInjectorFragment {
 
     private void onShowServiceStateUI(BluetoothServiceState state) {
         switch (state) {
+            case SERVICE_STARTING:
             case SERVICE_STOPPED:
                 if (getFragmentManager() == null)
                     return;
