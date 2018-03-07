@@ -37,6 +37,8 @@
     <string name="dashboard_bluetooth_disabled">Bluetooth ist deaktiviert</string>
     <string name="dashboard_bluetooth_disabled_snackbar">Bluetooth ist deaktiviert. Bluetooth muss aktiviert sein bevor die Aufzeichnung gestartet werden kann.</string>
     <string name="dashboard_bluetooth_disabled_advise">Bitte aktivieren Sie Bluetooth.</string>
+    <string name="dashboard_gps_disabled_snackbar">GPS ist deaktiviert. GPS muss aktiviert sein, bevor Sie einen Track starten können.</string>
+
 
     <string name="dashboard_obd_not_selected">Kein OBDII Adapter ausgewählt</string>
     <string name="dashboard_obd_not_selected_advise">Hier klicken um einen auszuwählen</string>

@@ -229,8 +229,6 @@
     <string name="logbook_information">Information about the Date, User, Car and Fueltype will be obtained automatically</string>
     <string name="comment">Additional comments</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_item_obd_plus_gps">OBD + GPS</string>
     <string name="menu_item_gps_only">GPS Only</string>
     <string name="menu_item_select_recording_type">Recording Type</string>

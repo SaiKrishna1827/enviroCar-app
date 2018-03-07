@@ -235,4 +235,9 @@
 	<string name="currency">Währung</string>
 	<string name="logbook_information">Informationen zu Zeit, Nutzer, Auto und Kraftstoff werden automatisch ermittelt</string>
 	<string name="comment">Zusätzliche Anmerkungen</string>
+
+    <string name="menu_item_obd_plus_gps">OBD + GPS</string>
+    <string name="menu_item_gps_only">Nur GPS</string>
+    <string name="menu_item_select_recording_type">Aufnahmetyp</string>
+
 </resources>
